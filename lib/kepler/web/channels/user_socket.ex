@@ -2,7 +2,6 @@ defmodule Kepler.Web.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Kepler.Web.RoomChannel
   channel "amsat:positions", Kepler.Web.SatPositionsChannel
 
   ## Transports
