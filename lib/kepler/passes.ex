@@ -1,12 +1,10 @@
 defmodule Kepler.Passes do
+  import Kepler.Util
+
   @default_duration [days: 1]
 
   def list(lat, lon) do
-    observer = %Satellite.Observer{
-      latitude: lat,
-      longitude: lon,
-      height: 0
-    }
+    observer = build_observer(lat, lon)
     now = Timex.now |> Timex.to_erl
     until = Timex.now |> Timex.shift(@default_duration) |> Timex.to_erl
 
