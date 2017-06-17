@@ -6,12 +6,11 @@
 
 <script>
   import {Socket} from "phoenix"
+  import PassesTable from "./PassesTable"
+  import PositionsTable from "./PositionsTable"
 
   export default {
-    components: {
-      'PassesTable': require('./passes-table'),
-      'PositionsTable': require('./positions-table')
-    },
+    components: { PassesTable, PositionsTable },
 
     data() {
       return {

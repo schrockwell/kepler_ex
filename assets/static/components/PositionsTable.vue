@@ -14,16 +14,16 @@
       <tr v-if="positions.length == 0" class="text-muted">
         <td colspan="99">Loading…</td>
       </tr>
-      <position-row v-for="(p, i) in positions" :position="p" :previous-position="previousPositions[i]"></position-row>
+      <position-row v-for="(p, i) in positions" :position="p" :previous-position="previousPositions[i]" :key="p.sat.id"></position-row>
     </tbody>
   </table>
 </template>
 
 <script>
+  import PositionRow from './PositionRow'
+
   export default {
-    components: {
-      'PositionRow': require('./position-row')
-    },
+    components: {PositionRow},
 
     props: ['socket', 'location'],
 
