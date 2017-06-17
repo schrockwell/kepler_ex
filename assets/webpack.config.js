@@ -2,6 +2,7 @@ var CopyWebpackPlugin = require("copy-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var utils = require('./utils');
 var path = require('path');
+var webpack = require("webpack");
 
 module.exports = {
   entry: "./static/js/app.js",
@@ -41,7 +42,9 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      {test: /\.css$/, use: ['style-loader', 'css-loader']},
+      {test: /\.scss$/, use: ['style-loader','css-loader','sass-loader']},
     ]
   },
   resolve: {
@@ -53,7 +56,13 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("../css/app.css"),
-    new CopyWebpackPlugin([{from: "./static/assets", to: "../"}])
+    new CopyWebpackPlugin([{from: "./static/assets", to: "../"}]),
+    new webpack.ProvidePlugin({ // inject ES5 modules as global vars
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Tether: 'tether'
+    })
   ]
 
 }
