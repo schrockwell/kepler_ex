@@ -1,8 +1,8 @@
 const compassPoints = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 
 export default {
-  degrees(deg) {
-    return deg.toFixed(1) + "°"
+  degrees(deg, precision) {
+    return deg.toFixed(precision === undefined ? 1 : precision) + "°"
   },
 
   cardinal(deg) {

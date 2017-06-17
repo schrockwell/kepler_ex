@@ -22,32 +22,12 @@
   export default {
     components: {PositionRow},
 
-    props: ['socket', 'location'],
+    props: ['positions', 'previousPositions'],
 
     data() {
       return {
-        previousPositions: [],
-        positions: [],
-        channel: this.socket.channel('amsat:positions', { location: this.location }),
         selectedId: null
       }
-    },
-
-    created() {
-      this.channel.join()
-        .receive('ok', initial => {
-          this.previousPositions = []
-          this.positions = initial.positions
-        })
-
-      this.channel.on('positions', payload => {
-        this.previousPositions = this.positions
-        this.positions = payload.positions
-      })
-    },
-
-    destroyed() {
-      this.channel.leave()
     }
   }
 </script>

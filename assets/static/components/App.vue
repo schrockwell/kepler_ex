@@ -19,7 +19,10 @@
       </div>
     </nav>
 
-    <router-view :location="location" :socket="socket"></router-view>
+    <router-view 
+      :positions="positions"
+      :previousPositions="previousPositions">
+    </router-view>
   </div>
 </template>
 
@@ -33,7 +36,9 @@
         location: {
           coord: [41.8612793, -72.1248892] // Hardcoded for my location
         },
-        now: new Date()
+        now: new Date(),
+        positions: [],
+        previousPositions: []
       }
     },
 
@@ -48,6 +53,19 @@
 
     created() {
       this.socket.connect()
+
+      const positionChannel = this.socket.channel('amsat:positions', { location: this.location })
+
+      positionChannel.join()
+        .receive('ok', initial => {
+          this.previousPositions = []
+          this.positions = initial.positions
+        })
+
+      positionChannel.on('positions', payload => {
+        this.previousPositions = this.positions
+        this.positions = payload.positions
+      })
 
       setInterval(() => {
         this.now = new Date()
