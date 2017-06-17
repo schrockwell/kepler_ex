@@ -20,7 +20,7 @@ defmodule Kepler.Web.SatPositionsChannel do
 
   def handle_info(:tick, socket) do
     with {:ok, view} <- render_positions(socket),
-      do: broadcast(socket, "positions", view)
+      do: push(socket, "positions", view)
     {:noreply, socket}
   end
 
