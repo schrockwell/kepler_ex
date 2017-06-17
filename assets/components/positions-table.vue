@@ -14,7 +14,7 @@
       <tr v-if="positions.length == 0" class="text-muted">
         <td colspan="99">Loading…</td>
       </tr>
-      <position-row v-for="(p, i) in positions" :position="p" :previous-position="previousPositions[i]" />
+      <position-row v-for="(p, i) in positions" :position="p" :previous-position="previousPositions[i]"></position-row>
     </tbody>
   </table>
 </template>
