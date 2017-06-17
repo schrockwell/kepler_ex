@@ -3,7 +3,7 @@
     <th>{{position.sat.name}}</th>
     <td class="num">{{this.az}}</td>
     <td class="text-muted">{{this.azCardinal}}</td>
-    <td class="num">{{this.el}}</td>
+    <td :class="elClass">{{this.el}}</td>
     <td :class="direction">{{this.arrow}}</td>
   </tr>
 </template>
@@ -12,11 +12,11 @@
   import format from "../js/format"
 
   export default {
-    props: ['position', 'previousPosition'],
+    props: ['position', 'previousPosition', 'selected'],
 
     computed: {
       rowClass() {
-        return this.position.el > 0 ? "success" : null
+        return this.selected ? 'table-info' : null
       },
 
       az() {
@@ -25,6 +25,16 @@
 
       el() {
         return format.degrees(this.position.el)
+      },
+
+      elClass() {
+        if (this.position.el > -5 && this.direction != 'down') {
+          return 'num text-warning bold'
+        } else if (this.position.el > 0) {
+          return 'num text-success bold'
+        } else {
+          return 'num'
+        }
       },
 
       azCardinal() {
@@ -57,4 +67,5 @@
 <style scoped>
   td.up { color: #0a0; }
   td.down { color: #c00; }
+  .bold {font-weight: bold;}
 </style>

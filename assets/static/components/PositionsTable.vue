@@ -1,19 +1,17 @@
 <template>
   <table class="table">
-    <thead>
-      <tr>
-        <th>Sat</th>
-        <th class="num">Az</th>
-        <th></th>
-        <th class="num">El</th>
-        <th></th>
-      </tr>
-    </thead>
     <tbody>
       <tr v-if="positions.length == 0" class="text-muted">
         <td colspan="99">Loading…</td>
       </tr>
-      <position-row v-for="(p, i) in positions" :position="p" :previous-position="previousPositions[i]" :key="p.sat.id"></position-row>
+      <position-row 
+        v-for="(p, i) in positions"
+        :key="p.sat.id"
+        :position="p"
+        :previous-position="previousPositions[i]"
+        :selected="selectedId === p.sat.id"
+        @click.native="selectedId = p.sat.id">
+      </position-row>
     </tbody>
   </table>
 </template>
@@ -30,7 +28,8 @@
       return {
         previousPositions: [],
         positions: [],
-        channel: this.socket.channel('amsat:positions', { location: this.location })
+        channel: this.socket.channel('amsat:positions', { location: this.location }),
+        selectedId: null
       }
     },
 
