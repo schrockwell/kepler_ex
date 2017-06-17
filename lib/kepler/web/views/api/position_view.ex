@@ -5,11 +5,10 @@ defmodule Kepler.Web.API.PositionView do
     position_views = for {sat_id, position} <- positions do
       sat = Kepler.AmateurSatellite.get(sat_id)
       %{
-        sat:           sat,
-        elevation_deg: position.elevation_in_degrees,
-        azimuth_deg:   position.azimuth_in_degrees,
-        range_km:      position.range,
-        magnitude:     position.satellite_magnitude,
+        sat:   sat,
+        el:    position.elevation_in_degrees,
+        az:    position.azimuth_in_degrees,
+        range: position.range,
       }
     end
 
