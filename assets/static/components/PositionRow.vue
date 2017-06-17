@@ -28,10 +28,10 @@
       },
 
       elClass() {
-        if (this.position.el > -5 && this.direction != 'down') {
-          return 'num text-warning bold'
-        } else if (this.position.el > 0) {
+        if (this.position.el > 0) {
           return 'num text-success bold'
+        } else if (this.position.el > -5 && this.direction == 'up') {
+          return 'num text-warning bold'
         } else {
           return 'num'
         }
