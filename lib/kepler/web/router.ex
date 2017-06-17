@@ -16,7 +16,7 @@ defmodule Kepler.Web.Router do
   scope "/", Kepler.Web do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 
   scope "/api", Kepler.Web.API do

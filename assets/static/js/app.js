@@ -16,7 +16,8 @@ import '../css/app.scss'
 // VUE APP
 //
 import App from "../components/App"
-import PositionsTable from "../components/PositionsTable"
+import Positions from "../components/Positions"
+import Passes from "../components/Passes"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
@@ -28,8 +29,13 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'positions',
-      component: PositionsTable,
-    }
+      component: Positions,
+    },
+    {
+      path: '/passes',
+      name: 'passes',
+      component: Passes,
+    },
   ],
 })
 

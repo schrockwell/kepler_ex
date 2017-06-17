@@ -7,7 +7,6 @@
         <th></th>
         <th class="num">El</th>
         <th></th>
-        <th class="num">Range</th>
       </tr>
     </thead>
     <tbody>
@@ -54,8 +53,9 @@
   }
 </script>
 
-<style>
-  .num {
-    text-align: right;
+<style scoped>
+  tbody tr:hover {
+    background-color: #eee;
+    cursor: pointer;
   }
 </style>

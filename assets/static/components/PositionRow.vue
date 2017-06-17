@@ -5,7 +5,6 @@
     <td class="text-muted">{{this.azCardinal}}</td>
     <td class="num">{{this.el}}</td>
     <td :class="direction">{{this.arrow}}</td>
-    <td class="num">{{this.position.range.toFixed()}} km</td>
   </tr>
 </template>
 
