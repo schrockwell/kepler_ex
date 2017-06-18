@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary fixed-top">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -19,7 +19,9 @@
       </div>
     </nav>
 
-    <router-view></router-view>
+    <div class="wrapper">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -27,15 +29,9 @@
   import format from '../js/format'
 
   export default {
-    data() {
-      return {
-        now: new Date(),
-      }
-    },
-
     computed: {
       utc() {
-        return format.utcTime(this.now)
+        return format.utcTime(this.$store.state.now)
       }
     },
 
@@ -51,17 +47,20 @@
         this.$store.commit('setPositions', payload.positions)
       })
 
-      const passesChannel = this.$store.state.socket.channel('amsat:passes', { location: this.$store.state.location })
-      passesChannel.join()
-      passesChannel.on('calculating', () => {
+      const passChannel = this.$store.state.socket.channel('amsat:passes', { location: this.$store.state.location })
+      passChannel.join()
+      passChannel.on('calculating', () => {
         this.$store.commit('clearPasses')
       })
-      passesChannel.on('passes', payload => {
+      passChannel.on('passes', payload => {
         this.$store.commit('setPasses', payload.passes)
       })
 
+      this.$store.state.positionChannel = positionChannel
+      this.$store.state.passChannel = passChannel
+      
       setInterval(() => {
-        this.now = new Date()
+        this.$store.commit('tick')
       }, 1000)
     },
 
@@ -75,6 +74,10 @@
   .container-fluid {
     padding: 0;
     height: 100%;
-    min-height: 100%;
+  }
+
+  .wrapper {
+    height: 100%;
+    padding-top: 51.38px;
   }
 </style>

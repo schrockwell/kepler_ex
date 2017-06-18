@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row no-gutters" style="height: 100%">
+    <div class="col-md-4 d-flex flex-column">
       <sat-info :satId="$store.state.trackingSatId"></sat-info>
       <positions-table></positions-table>
     </div>

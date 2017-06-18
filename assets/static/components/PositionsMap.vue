@@ -1,8 +1,8 @@
 <template>
   <gmap-map 
-    style="width: 100%; height: 500px"
+    style="width: 100%; min-height: 100%"
     :center="center"
-    :zoom="1">
+    :zoom="2">
     
     <gmap-marker
       v-for="p in $store.state.positions"

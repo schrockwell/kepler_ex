@@ -24,10 +24,14 @@
   export default {
     props: ['pass'],
     computed: {
+      unixTime() {
+        return this.$store.state.now.valueOf() / 1000;
+      },
+
       rowClass() {
-        if (this.pass.los.at < Date.now() / 1000) {
+        if (this.pass.los.at < this.unixTime) {
           return 'text-muted'
-        } else if (this.pass.aos.at < Date.now() / 1000 && this.pass.los.at > Date.now() / 1000) {
+        } else if (this.pass.aos.at < this.unixTime && this.pass.los.at > this.unixTime) {
           return 'table-success'
         } else {
           return null

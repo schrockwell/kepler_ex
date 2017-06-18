@@ -14,6 +14,9 @@ export default new Vuex.Store({
     },
     trackingSatId: null,
     socket: new Socket("/socket"),
+    passChannel: null,
+    positionChannel: null,
+    now: new Date()
   },
 
   mutations: {
@@ -37,6 +40,10 @@ export default new Vuex.Store({
 
     setPasses(state, newPasses) {
       state.passes = newPasses
+    },
+
+    tick(state) {
+      state.now = new Date()
     }
   },
 

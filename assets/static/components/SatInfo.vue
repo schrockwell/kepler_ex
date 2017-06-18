@@ -31,7 +31,7 @@
 
 <style lang="scss" scoped>
   .sat-info {
-    height: 200px;
+    min-height: 200px;
     padding: 10px;
   }
 
