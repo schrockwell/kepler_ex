@@ -26,7 +26,7 @@
 
   Vue.use(VueGoogleMaps, {
     load: {
-      key: 'AIzaSyAeSpr-2gJxJWY6n5SOoML0OIW0SsTuhx4'
+      key: '' // Insert Google Maps API key here -- works okay without it (for now?)
     }
   })
 
