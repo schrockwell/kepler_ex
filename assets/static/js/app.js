@@ -67,6 +67,20 @@ const store = new Vuex.Store({
     trackSatId(state, satId) {
       state.trackingSatId = satId
     }
+  },
+
+  getters: {
+    positionsObject(state) {
+      let obj = {}
+      for (var i = 0; i < state.positions.length; i++) {
+        obj[state.positions[i].sat.id] = state.positions[i]
+      }
+      return obj
+    },
+
+    trackedPosition(state, getters) {
+      return getters.positionsObject[state.trackingSatId]
+    }
   }
 })
 
