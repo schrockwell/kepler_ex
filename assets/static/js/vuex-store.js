@@ -31,7 +31,11 @@ export default new Vuex.Store({
     },
 
     trackSatId(state, satId) {
-      state.trackingSatId = satId
+      if (state.trackingSatId == satId) {
+        state.trackingSatId = null
+      } else {
+        state.trackingSatId = satId
+      }
     },
 
     clearPasses(state) {
