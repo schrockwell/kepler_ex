@@ -1,16 +1,16 @@
 <template>
   <table class="table">
     <tbody>
-      <tr v-if="positions.length == 0" class="text-muted">
+      <tr v-if="$store.state.positions.length == 0" class="text-muted">
         <td colspan="99">Loading…</td>
       </tr>
       <position-row 
-        v-for="(p, i) in positions"
+        v-for="(p, i) in $store.state.positions"
         :key="p.sat.id"
         :position="p"
-        :previous-position="previousPositions[i]"
-        :selected="selectedId === p.sat.id"
-        @click.native="selectedId = p.sat.id">
+        :previous-position="$store.state.previousPositions[i]"
+        :selected="$store.state.trackingSatId === p.sat.id"
+        @click.native="$store.commit('trackSatId', p.sat.id)">
       </position-row>
     </tbody>
   </table>
@@ -21,14 +21,6 @@
 
   export default {
     components: {PositionRow},
-
-    props: ['positions', 'previousPositions'],
-
-    data() {
-      return {
-        selectedId: null
-      }
-    }
   }
 </script>
 

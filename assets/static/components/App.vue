@@ -19,26 +19,16 @@
       </div>
     </nav>
 
-    <router-view 
-      :positions="positions"
-      :previousPositions="previousPositions">
-    </router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import {Socket} from "phoenix"
 
   export default {
     data() {
       return {
-        socket: new Socket("/socket"),
-        location: {
-          coord: [41.8612793, -72.1248892] // Hardcoded for my location
-        },
         now: new Date(),
-        positions: [],
-        previousPositions: []
       }
     },
 
@@ -52,19 +42,17 @@
     },
 
     created() {
-      this.socket.connect()
+      this.$store.state.socket.connect()
 
-      const positionChannel = this.socket.channel('amsat:positions', { location: this.location })
+      const positionChannel = this.$store.state.socket.channel('amsat:positions', { location: this.$store.state.location })
 
       positionChannel.join()
         .receive('ok', initial => {
-          this.previousPositions = []
-          this.positions = initial.positions
+          this.$store.commit('setInitialPositions', initial.positions)
         })
 
       positionChannel.on('positions', payload => {
-        this.previousPositions = this.positions
-        this.positions = payload.positions
+        this.$store.commit('setPositions', payload.positions)
       })
 
       setInterval(() => {
@@ -73,7 +61,7 @@
     },
 
     destroyed() {
-      this.socket.disconnect()
+      this.$store.state.socket.disconnect()
     },
   }
 </script>
