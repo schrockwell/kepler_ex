@@ -9,7 +9,8 @@
       :key="p.sat.id"
       :position="{lat: p.lat, lng: p.lon}"
       :title="p.sat.name"
-      @click="$store.commit('trackSatId', p.sat.id)"></gmap-marker>
+      @click="$store.commit('trackSatId', p.sat.id)"
+      :icon="{url: '/images/satellite.png', scaledSize: {width: 40, height: 40}, anchor: {x: 20, y: 20}}"></gmap-marker>
 
     <gmap-circle
       v-if="$store.getters.trackedPosition"
