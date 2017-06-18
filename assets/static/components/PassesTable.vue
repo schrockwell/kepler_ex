@@ -1,35 +1,45 @@
 <template>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Sat</th>
-        <th colspan="2">AOS</th>
-        <th colspan="2">LOS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="pass in passes">
-        <th>{{pass.sat.name}}</th>
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <div v-if="passes.length === 0" class="text-muted loading">
+      Loading…
+    </div>
+    <div v-if="passes.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Sat</th>
+            <th class="num">Peak</th>
+            <th class="num br">Duration</th>
+            <th class="br text-center" colspan="3">AOS</th>
+            <th class="br text-center" colspan="3">Max</th>
+            <th class="br text-center" colspan="3">LOS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <pass-row
+            v-for="p in passes"
+            :pass="p"></pass-row>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        passes: []
-      }
-    },
+  import PassRow from './PassRow'
 
+  export default {
+    components: {PassRow},
     computed: {
-      futurePasses() {
-        const now = Date.now()
-        return this.passes.filter(pass => {
-          return (pass.end_time / 1000) > now
-        })
+      passes() {
+        return this.$store.state.passes
       }
     }
   }
 </script>
+
+<style scoped>
+  .loading {
+    padding: 20px;
+  }
+</style>

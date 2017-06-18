@@ -46,6 +46,7 @@ const store = new Vuex.Store({
   state: {
     positions: [],
     previousPositions: [],
+    passes: [],
     location: {
       coord: [41.8612793, -72.1248892] // Hardcoded for my location
     },
@@ -66,6 +67,14 @@ const store = new Vuex.Store({
 
     trackSatId(state, satId) {
       state.trackingSatId = satId
+    },
+
+    clearPasses(state) {
+      state.passes = []
+    },
+
+    setPasses(state, newPasses) {
+      state.passes = newPasses
     }
   },
 

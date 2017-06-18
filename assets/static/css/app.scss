@@ -12,4 +12,10 @@ html, body {
   text-align: right;
 }
 
+table.table {
+  .br {
+    border-right: 1px solid #eceeef;
+  }
+}
+
 //Write your main scss here or just import a framework

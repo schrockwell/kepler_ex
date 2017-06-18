@@ -14,7 +14,7 @@
           </li>
         </ul>
         <span class="navbar-text">
-          {{this.utc}}
+          {{this.utc}} UTC
         </span>
       </div>
     </nav>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import format from '../js/format'
 
   export default {
     data() {
@@ -34,10 +35,7 @@
 
     computed: {
       utc() {
-        return ('00' + this.now.getUTCHours()).slice(-2) 
-          + ':' + ('00' + this.now.getUTCMinutes()).slice(-2)
-          + ':' + ('00' + this.now.getUTCSeconds()).slice(-2)
-          + ' UTC'
+        return format.utcTime(this.now)
       }
     },
 
@@ -45,14 +43,21 @@
       this.$store.state.socket.connect()
 
       const positionChannel = this.$store.state.socket.channel('amsat:positions', { location: this.$store.state.location })
-
       positionChannel.join()
         .receive('ok', initial => {
           this.$store.commit('setInitialPositions', initial.positions)
         })
-
       positionChannel.on('positions', payload => {
         this.$store.commit('setPositions', payload.positions)
+      })
+
+      const passesChannel = this.$store.state.socket.channel('amsat:passes', { location: this.$store.state.location })
+      passesChannel.join()
+      passesChannel.on('calculating', () => {
+        this.$store.commit('clearPasses')
+      })
+      passesChannel.on('passes', payload => {
+        this.$store.commit('setPasses', payload.passes)
       })
 
       setInterval(() => {

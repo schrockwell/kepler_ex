@@ -3,6 +3,7 @@ defmodule Kepler.Web.UserSocket do
 
   ## Channels
   channel "amsat:positions", Kepler.Web.SatPositionsChannel
+  channel "amsat:passes", Kepler.Web.SatPassesChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
