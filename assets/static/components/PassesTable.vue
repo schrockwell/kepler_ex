@@ -18,6 +18,7 @@
         <tbody>
           <pass-row
             v-for="p in passes"
+            :key="p.at + '-' + p.sat.id"
             :pass="p"></pass-row>
         </tbody>
       </table>
