@@ -10,7 +10,8 @@ export default new Vuex.Store({
     previousPositions: [],
     passes: [],
     location: {
-      coord: [41.8612793, -72.1248892] // Hardcoded for my location
+      // coord: [41.8612793, -72.1248892] // WW1X
+      coord: [42.0759329, -72.5966875] // HCRA Field Day
     },
     trackingSatId: null,
     socket: new Socket("/socket"),
