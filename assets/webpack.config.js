@@ -62,7 +62,11 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Tether: 'tether'
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'KEPLER_GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.KEPLER_GOOGLE_MAPS_API_KEY)
+      }
     })
   ]
-
 }

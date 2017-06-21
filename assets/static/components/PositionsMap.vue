@@ -26,7 +26,7 @@
 
   Vue.use(VueGoogleMaps, {
     load: {
-      key: '' // Insert Google Maps API key here -- works okay without it (for now?)
+      key: process.env.KEPLER_GOOGLE_MAPS_API_KEY // Passed in through ENV
     }
   })
 
